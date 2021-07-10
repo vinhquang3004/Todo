@@ -1,11 +1,9 @@
-import React, { Fragment } from 'react'
+import React from 'react'
 
 const TodoItem = (props) => {
-    console.log(props)
-    return(
-        <Fragment>
-            {props}
-        </Fragment>
+    const todo = props.todoProps
+    return (
+        <p>{todo}</p>
     )
 }
 
