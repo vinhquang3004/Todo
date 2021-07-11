@@ -18,8 +18,9 @@ const TodoItem = (props) => {
     const todoTitle = props.todoProps.title
     const todoCompleted = props.todoProps.completed
     const styleTodo = useStyles();
-    const [checked, setChecked] = React.useState(true);
+    //const [checked, setChecked] = React.useState(true);
     const markCompleted = props.markCompleted
+    const deleteTodo = props.deleteTodo
 
     //style background totoItem
     const todoItemStyle = {
@@ -40,14 +41,14 @@ const TodoItem = (props) => {
         <div style={todoItemStyle} className={styleTodo.root}>
             {/* checkbox */}
             <Checkbox
-                onChange={markCompleted.bind(this, todoId)}
-                checked={todoCompleted}
+                onChange = {markCompleted.bind(this, todoId)}
+                checked = {todoCompleted} //kiem tra obj da complete hay chua, neu true thi check box tu check
                 inputProps={{ 'aria-label': 'primary checkbox' }}
             />
             {/* note */}
             {todoTitle}
             {/* button delete */}
-            <Button style={buttonDeleteStyle} variant="contained" color="secondary">
+            <Button style={buttonDeleteStyle} variant="contained" color="secondary" onClick = {deleteTodo.bind(this, todoId)}>
                 Delete
             </Button>
         </div>
@@ -56,8 +57,9 @@ const TodoItem = (props) => {
 
 //kiem tra kieu du lieu props
 TodoItem.propTypes = {
-    todoProps: propTypes.func.isRequired,
-    markCompleted: propTypes.func.isRequired
+    todoProps: propTypes.object.isRequired,
+    markCompleted: propTypes.func.isRequired,
+    deleteTodo: propTypes.func.isRequired,
 };
 
 export default TodoItem

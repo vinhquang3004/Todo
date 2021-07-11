@@ -11,10 +11,17 @@ const TodoList = () => {
     //Ham thay doi trang thai completed (false -> true || true -> false)
     const markCompleted = (idCheckBox) => {
         const newObj = todosState.map(obj => {
-            if(obj.id === idCheckBox){
+            if (obj.id === idCheckBox) {
                 obj.completed = !obj.completed
             }
             return obj
+        })
+        setTodosState(newObj)
+    }
+    //Xoa todo bang cach loc cac phan tu khong bao gom ID todo muon xoa vao array moi
+    const deleteTodo = (idDelete) => {
+        const newObj = todosState.filter(obj => {
+            return (obj.id !== idDelete)
         })
         setTodosState(newObj)
     }
@@ -22,7 +29,11 @@ const TodoList = () => {
     return (
         <Fragment>
             {todosState.map(obj => {
-                return <TodoItem todoProps={obj} markCompleted = {markCompleted}/>
+                return <TodoItem
+                    key={obj.id}
+                    todoProps={obj}
+                    markCompleted={markCompleted}
+                    deleteTodo={deleteTodo} />
             })}
         </Fragment>
     )
