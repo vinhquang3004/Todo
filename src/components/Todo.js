@@ -2,7 +2,7 @@ import React from 'react'
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Checkbox from '@material-ui/core/Checkbox';
-
+import propTypes from 'prop-types'
 //test git
 const TodoItem = (props) => {
     //style material
@@ -14,13 +14,12 @@ const TodoItem = (props) => {
         },
     }));
 
+    const todoId = props.todoProps.id
     const todoTitle = props.todoProps.title
     const todoCompleted = props.todoProps.completed
     const styleTodo = useStyles();
     const [checked, setChecked] = React.useState(true);
-    const handleChange = (event) => {
-        setChecked(event.target.checked);
-    };
+    const markCompleted = props.markCompleted
 
     //style background totoItem
     const todoItemStyle = {
@@ -28,7 +27,7 @@ const TodoItem = (props) => {
         /* padding: '10px', */
         margin: '15px',
         borderBottom: '1px #ccc dotted',
-        textDecoration: todoCompleted ? 'none' : 'line-through'
+        textDecoration: todoCompleted ? 'line-through' : 'none'
     }
 
     //style button delete
@@ -41,14 +40,13 @@ const TodoItem = (props) => {
         <div style={todoItemStyle} className={styleTodo.root}>
             {/* checkbox */}
             <Checkbox
-                checked={checked}
-                onChange={handleChange}
+                onChange={markCompleted.bind(this, todoId)}
+                checked={todoCompleted}
                 inputProps={{ 'aria-label': 'primary checkbox' }}
             />
             {/* note */}
             {todoTitle}
             {/* button delete */}
-            {/* <input type='button' value="delete" /> */}
             <Button style={buttonDeleteStyle} variant="contained" color="secondary">
                 Delete
             </Button>
@@ -56,5 +54,10 @@ const TodoItem = (props) => {
     )
 }
 
+//kiem tra kieu du lieu props
+TodoItem.propTypes = {
+    todoProps: propTypes.func.isRequired,
+    markCompleted: propTypes.func.isRequired
+};
 
 export default TodoItem
